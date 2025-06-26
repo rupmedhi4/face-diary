@@ -10,10 +10,20 @@ const port = process.env.PORT || 5000;
 const app = express();
 
 
+const allowedOrigins = [
+  'http://localhost:5173',                         // dev (Vite)
+  'https://secret-diary-frontend.vercel.app'       // prod (Vercel)
+];
 
 app.use(cors({
-  origin: "http://localhost:5173",  // 👈 your frontend port (Vite)
-  credentials: true                 // 👈 must for cookies
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
