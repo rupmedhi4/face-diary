@@ -11,8 +11,8 @@ const app = express();
 
 
 const allowedOrigins = [
-  'http://localhost:5173',                         // dev (Vite)
-  'https://secret-diary-frontend.vercel.app'       // prod (Vercel)
+  'http://localhost:5173',                         
+  'https://secret-diary-frontend.vercel.app'       
 ];
 
 app.use(cors({
