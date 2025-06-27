@@ -45,7 +45,7 @@ const signupOrLogin = async (req, res) => {
     const newUser = new User({ faceId: JSON.stringify(faceId) });
     await newUser.save();
 
-    createTokenAndSaveCookie(newUser._id, faceId, res);
+    createTokenAndSaveCookie(newUser._id, res);
     res.status(201).json({ message: "Signup successful", user: newUser });
 
   } catch (error) {

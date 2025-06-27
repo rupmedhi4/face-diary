@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
 
-const createTokenAndSaveCookie = (user, faceId, res) => {
+const createTokenAndSaveCookie = (user, res) => {
   const isProduction = process.env.NODE_ENV === 'production';
 console.log(isProduction);
 
   const token = jwt.sign(
-    { id: user._id, faceId },
+    { id: user._id },
     process.env.JWT_TOKEN,
     { expiresIn: '14d' }
   );
