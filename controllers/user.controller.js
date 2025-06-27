@@ -38,7 +38,7 @@ const signupOrLogin = async (req, res) => {
     }
 
     if (matchedUser) {
-      createTokenAndSaveCookie(matchedUser._id, faceId, res);
+      createTokenAndSaveCookie(matchedUser._id, res);
       return res.status(200).json({ message: "Login successful", user: matchedUser });
     }
 
