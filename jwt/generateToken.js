@@ -9,12 +9,13 @@ const createTokenAndSaveCookie = (user, faceId, res) => {
     { expiresIn: '14d' }
   );
 
-  res.cookie('jwt', token, {
-    httpOnly: false,                           
-    secure: isProduction,                     
-    sameSite: isProduction ? 'None' : 'Lax',   
-    maxAge: 3 * 24 * 60 * 60 * 1000        
-  });
+ res.cookie('jwt', token, {
+  httpOnly: false,                        
+  secure: false,                         
+  sameSite: 'Lax',                        
+  maxAge: 3 * 24 * 60 * 60 * 1000        
+});
+
 
   console.log('JWT created:', token);
 };

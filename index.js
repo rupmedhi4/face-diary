@@ -10,14 +10,20 @@ const app = express();
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://secret-diary-frontend.vercel.app'
+  'https://secret-diary-frontend-vusb.vercel.app'
 ];
 
-// CORS config
 app.use(cors({
-  origin: allowedOrigins,
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
