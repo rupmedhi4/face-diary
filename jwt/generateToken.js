@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 
 const createTokenAndSaveCookie = (user, faceId, res) => {
   const isProduction = process.env.NODE_ENV === 'production';
+console.log(isProduction);
 
   const token = jwt.sign(
     { id: user._id, faceId },
@@ -9,15 +10,14 @@ const createTokenAndSaveCookie = (user, faceId, res) => {
     { expiresIn: '14d' }
   );
 
- res.cookie('jwt', token, {
-  httpOnly: false,                        
-  secure: true,                         
-  sameSite: 'none',                        
-  maxAge: 3 * 24 * 60 * 60 * 1000        
-});
+  res.cookie('jwt', token, {
+    httpOnly: false,                             
+    secure: isProduction,                       
+    sameSite: isProduction ? 'None' : 'Lax',   
+    maxAge: 14 * 24 * 60 * 60 * 1000          
+  });
 
-
-  console.log('JWT created:', token);
+  console.log('JWT created and cookie set');
 };
 
 export { createTokenAndSaveCookie };
