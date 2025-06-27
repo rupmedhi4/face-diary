@@ -5,7 +5,7 @@ import { diaryEntries, getDiaryEntries } from "../controllers/diary.entries.mode
 
 const router = express.Router();
 
-router.post("/signup", signupOrLogin);
+router.post("/signup",isLogin, signupOrLogin);
 router.post("/diary/entries",isAuthMiddleware, diaryEntries);
 router.get("/diary/data",isAuthMiddleware, getDiaryEntries);
 

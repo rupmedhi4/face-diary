@@ -11,9 +11,9 @@ const createTokenAndSaveCookie = (user, faceId, res) => {
 
   res.cookie('jwt', token, {
     httpOnly: false,                           
-    secure: isProduction,                      
+    secure: isProduction,                     
     sameSite: isProduction ? 'None' : 'Lax',   
-    maxAge: 3 * 24 * 60 * 60 * 1000          
+    maxAge: 3 * 24 * 60 * 60 * 1000        
   });
 
   console.log('JWT created:', token);
