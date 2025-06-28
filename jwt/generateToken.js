@@ -1,8 +1,6 @@
 import jwt from 'jsonwebtoken';
 
 const createTokenAndSaveCookie = (user, res) => {
-  const isProduction = process.env.NODE_ENV === 'production';
-console.log(isProduction);
 
   const token = jwt.sign(
     { id: user._id },

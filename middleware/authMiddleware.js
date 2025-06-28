@@ -21,7 +21,7 @@ const isAuthMiddleware = (req, res, next) => {
         next();
 
     } catch (error) {
-        console.error("Error in isAuthMiddleware:", err);
+        console.error("Error in isAuthMiddleware:", error);
         res.status(500).json({ error: "Internal server error" });
     }
 }
@@ -29,7 +29,6 @@ const isAuthMiddleware = (req, res, next) => {
 const isLogin = (req, res, next) => {
     try {
         const token = req.cookies.jwt || req.headers['authorization']?.split(' ')[1];
-console.log(token);
 
         if (token) {
             const decoded = jwt.verify(token, process.env.JWT_TOKEN);

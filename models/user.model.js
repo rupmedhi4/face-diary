@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
   faceId: {
-    type: [Number],
+    type: String,
        required: true,
-    unique: true, // Optional: prevent duplicate face IDs
+    unique: true, 
   },
   name: {
     type: String,
