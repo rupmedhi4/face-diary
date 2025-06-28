@@ -33,7 +33,7 @@ const isLogin = (req, res, next) => {
         if (token) {
             const decoded = jwt.verify(token, process.env.JWT_TOKEN);
             if (decoded) {
-                return res.status(400).json({ error: "User already logged in in islogin" });
+                return res.status(400).json({ error: "User already logged in in login" });
             }
         }
 
