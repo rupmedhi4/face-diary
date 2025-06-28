@@ -19,40 +19,31 @@ const signupOrLogin = async (req, res) => {
       return res.status(400).json({ message: "faceId is required" });
     }
 
-    if (typeof faceId === 'string') {
-      faceId = JSON.parse(faceId);
-    }
-
     const users = await User.find();
-
     let matchedUser = null;
 
     for (const user of users) {
-      const stored = JSON.parse(user.faceId);
-      const distance = euclideanDistance(stored, faceId);
-
+      const distance = euclideanDistance(user.faceId, faceId);
       if (distance < FACE_MATCH_THRESHOLD) {
         matchedUser = user;
         break;
       }
     }
 
-    if (matchedUser) {
-      const token = createTokenAndSaveCookie(matchedUser._id, res);
-      return res.status(200).json({ message: "Login successful", user: matchedUser,token });
-    }
+    const user = matchedUser || await new User({ faceId }).save();
+    const token = createTokenAndSaveCookie(user._id, res);
 
-    const newUser = new User({ faceId: JSON.stringify(faceId) });
-    await newUser.save();
-
-    const token = createTokenAndSaveCookie(newUser._id, res);
-    res.status(201).json({ message: "Signup successful", user: newUser,token });
+    return res.status(matchedUser ? 200 : 201).json({
+      message: matchedUser ? "Login successful" : "Signup successful",
+      token
+    });
 
   } catch (error) {
-    res.status(500).json({ message: "Face authentication failed", error: error.message });
+    return res.status(500).json({
+      message: "Face authentication failed",
+      error: error.message
+    });
   }
 };
-
-
 
 export { signupOrLogin };
