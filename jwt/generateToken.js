@@ -17,7 +17,8 @@ console.log(isProduction);
     maxAge: 14 * 24 * 60 * 60 * 1000          
   });
 
-  console.log('JWT created and cookie set');
+  return token
+
 };
 
 export { createTokenAndSaveCookie };

@@ -38,15 +38,15 @@ const signupOrLogin = async (req, res) => {
     }
 
     if (matchedUser) {
-      createTokenAndSaveCookie(matchedUser._id, res);
-      return res.status(200).json({ message: "Login successful", user: matchedUser });
+      const token = createTokenAndSaveCookie(matchedUser._id, res);
+      return res.status(200).json({ message: "Login successful", user: matchedUser,token });
     }
 
     const newUser = new User({ faceId: JSON.stringify(faceId) });
     await newUser.save();
 
-    createTokenAndSaveCookie(newUser._id, res);
-    res.status(201).json({ message: "Signup successful", user: newUser });
+    const token = createTokenAndSaveCookie(newUser._id, res);
+    res.status(201).json({ message: "Signup successful", user: newUser,token });
 
   } catch (error) {
     res.status(500).json({ message: "Face authentication failed", error: error.message });
