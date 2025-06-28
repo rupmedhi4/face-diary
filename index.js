@@ -11,7 +11,8 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:5173',
   'https://secret-diary-frontend-vusb.vercel.app',
-  'https://secret-diary-frontend-slt5.vercel.app'
+  'https://secret-diary-frontend-slt5.vercel.app',
+  'https://secret-diary-frontend-p2lc.vercel.app/'
   
 ];
 
